@@ -1,7 +1,7 @@
 import * as _ from "lodash";
 
 export const LESSONS_LIST_AVAILABLE = "NEW_LIST_AVAILABLE"
-export const ADD_NEW_LESSION = "ADD_NEW_LESSION"
+export const ADD_NEW_LESSON = "ADD_NEW_LESSION"
 
 export interface Observer {
   notify(data:any);

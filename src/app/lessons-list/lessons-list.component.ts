@@ -1,30 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { globalEventBus, Observer, LESSONS_LIST_AVAILABLE } from '../event-bus-experiments/event-bus';
+import { globalEventBus, Observer, LESSONS_LIST_AVAILABLE, ADD_NEW_LESSON } from '../event-bus-experiments/event-bus';
 import { Lesson } from '../shared/model/lesson';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'lessons-list',
   templateUrl: './lessons-list.component.html',
   styleUrls: ['./lessons-list.component.scss']
 })
-export class LessonsListComponent implements OnInit, Observer {
+export class LessonsListComponent implements Observer {
 
-  // member variable 
+  // member variable
   lessons: Lesson [] = [];
 
   constructor(){
     // register before top level element init. That's why it cannot be in ngOnInit
     console.log("lesson list component is registered as observer");
     globalEventBus.registerObserver(LESSONS_LIST_AVAILABLE ,this)
-  }
-
-  ngOnInit() {
-
+    globalEventBus.registerObserver(ADD_NEW_LESSON, {
+      notify: lessonText => {
+        this.lessons.push({
+          id: Math.random(),
+          description: lessonText
+        })
+      }
+    } )
   }
 
   notify(data: Lesson[]) {
     console.log("Lessons list component receives data")
-    this.lessons = data;
+    this.lessons = data.slice(0);
+  }
+
+  toggleLessonViewed(lesson:Lesson){
+    console.log("toggling lesson...");
+    lesson.completed = !lesson.completed;
+  }
+
+  delete(deleted:Lesson){
+    _.remove(this.lessons, lesson => lesson.id === deleted.id)
   }
 
 }
