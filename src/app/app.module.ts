@@ -4,11 +4,17 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserEventExperimentComponent } from './browser-event-experiment/browser-event-experiment.component';
+import { EventBusExperimentsComponent } from './event-bus-experiments/event-bus-experiments.component';
+import { LessonsListComponent } from './lessons-list/lessons-list.component';
+import { LessonsCounterComponent } from './lessons-counter/lessons-counter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BrowserEventExperimentComponent
+    BrowserEventExperimentComponent,
+    EventBusExperimentsComponent,
+    LessonsListComponent,
+    LessonsCounterComponent
   ],
   imports: [
     BrowserModule,
